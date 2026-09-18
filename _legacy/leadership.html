@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>GPC - Leadership | Empowering AGYW in Malawi</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        /* --- GPC GLOBAL THEME (Mirroring main site) --- */
+        :root {
+            --primary-pink: #F128C8;
+            --primary-pink-hover: #d81cb0;
+            --dark-blue: #1A237E;
+            --light-bg: #f9f9f9;
+            --white: #ffffff;
+            --text-dark: #333333;
+            --text-muted: #666666;
+            --border-light: #e0e0e0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--white);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* --- LOADER (same as homepage) --- */
+        .loader-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--white);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        .loader-wrapper.hide {
+            opacity: 0;
+            visibility: hidden;
+        }
+        .loader-logo {
+            animation: popUp 0.8s cubic-bezier(0.34, 1.2, 0.64, 1) forwards;
+            transform: scale(0);
+            max-width: 180px;
+        }
+        .loader-logo img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        @keyframes popUp {
+            0% { transform: scale(0); opacity: 0; }
+            60% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* --- HEADER (identical to main site) --- */
+        header {
+            width: 100%;
+            background: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .site-logo {
+            display: flex;
+            align-items: center;
+            line-height: 0;
+        }
+        .custom-logo {
+            max-height: 70px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 28px;
+            align-items: center;
+            margin-left: auto;
+        }
+        .nav-links > li > a {
+            font-weight: 600;
+            color: var(--dark-blue);
+            transition: color 0.3s;
+            font-size: 1rem;
+            padding: 8px 0;
+            display: block;
+        }
+        .nav-links > li > a:hover {
+            color: var(--primary-pink);
+        }
+
+        /* Dropdown */
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--white);
+            min-width: 220px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            list-style: none;
+            padding: 12px 0;
+            margin-top: 8px;
+            z-index: 100;
+        }
+        .nav-links li {
+            position: relative;
+        }
+        .nav-links li:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .dropdown-menu li a {
+            display: block;
+            padding: 10px 20px;
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        .dropdown-menu li a:hover {
+            background: var(--light-bg);
+            color: var(--primary-pink);
+            padding-left: 25px;
+        }
+        .has-dropdown > a::after {
+            content: "\f0d7";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            margin-left: 8px;
+            font-size: 0.75rem;
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+        .has-dropdown:hover > a::after {
+            transform: rotate(180deg);
+        }
+
+        /* Hamburger Menu with different line lengths */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            align-items: flex-end;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            width: 32px;
+            height: 26px;
+            gap: 5px;
+        }
+        .hamburger span {
+            display: block;
+            height: 3px;
+            background: var(--dark-blue);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+        .hamburger span:nth-child(1) { width: 32px; }
+        .hamburger span:nth-child(2) { width: 24px; }
+        .hamburger span:nth-child(3) { width: 18px; }
+        .hamburger.active span {
+            background: var(--primary-pink);
+        }
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+            width: 28px;
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+            width: 0;
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(4px, -6px);
+            width: 28px;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 12px 5%;
+            }
+            .custom-logo {
+                max-height: 50px;
+            }
+            .hamburger {
+                display: flex;
+            }
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                height: 100vh;
+                width: 75%;
+                max-width: 300px;
+                background: white;
+                flex-direction: column;
+                justify-content: flex-start;
+                gap: 0;
+                box-shadow: -5px 0 30px rgba(0,0,0,0.2);
+                transition: right 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+                z-index: 1000;
+                padding: 80px 0 2rem 0;
+                margin-left: 0;
+                overflow-y: auto;
+            }
+            .nav-links.active {
+                right: 0;
+            }
+            .nav-links li {
+                width: 100%;
+                text-align: left;
+                position: relative;
+            }
+            /* Subtle mobile separators */
+            .nav-links li:not(:last-child)::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 20px;
+                right: 20px;
+                height: 1px;
+                background: rgba(0, 0, 0, 0.06);
+            }
+            .nav-links > li > a {
+                font-size: 1.05rem;
+                padding: 14px 24px;
+                display: block;
+            }
+            .dropdown-menu {
+                position: static;
+                box-shadow: none;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                background: transparent;
+                padding-left: 36px;
+                display: none;
+                margin: 0;
+            }
+            .nav-links li.active-dropdown .dropdown-menu {
+                display: block;
+            }
+            .has-dropdown > a::after {
+                float: right;
+                margin-right: 20px;
+            }
+            .menu-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.5);
+                z-index: 999;
+                opacity: 0;
+                visibility: hidden;
+                transition: 0.2s;
+            }
+            .menu-overlay.active {
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+        .menu-overlay {
+            display: none;
+        }
+        @media (max-width: 768px) {
+            .menu-overlay {
+                display: block;
+            }
+        }
+
+        /* --- Leadership Hero Banner --- */
+        .leadership-hero {
+            position: relative;
+            height: 45vh;
+            min-height: 350px;
+            background-image: url('images/image12.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.65);
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            color: white;
+            animation: slideUpFade 0.8s ease-out;
+        }
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .hero-content p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        @keyframes slideUpFade {
+            0% { opacity: 0; transform: translateY(40px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- Leadership Grid --- */
+        .leadership-section {
+            padding: 60px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .section-header h2 {
+            font-size: 2rem;
+            color: var(--dark-blue);
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        .section-header p {
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .leadership-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+        }
+        .leader-card {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #eee;
+        }
+        .leader-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+        }
+        .leader-image {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            background-color: #f0f0f0;
+        }
+        .leader-info {
+            padding: 20px;
+        }
+        .leader-name {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--dark-blue);
+            margin-bottom: 4px;
+        }
+        .leader-position {
+            font-size: 0.8rem;
+            color: var(--primary-pink);
+            font-weight: 600;
+            margin-bottom: 12px;
+            letter-spacing: 0.3px;
+        }
+        .leader-bio-preview {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .read-more-btn {
+            background: transparent;
+            border: 2px solid var(--primary-pink);
+            color: var(--primary-pink);
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .read-more-btn:hover {
+            background: var(--primary-pink);
+            color: white;
+        }
+
+        /* --- Modal Popup --- */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(4px);
+        }
+        .modal.active {
+            display: flex;
+            animation: fadeInModal 0.3s ease;
+        }
+        @keyframes fadeInModal {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .modal-content {
+            background: white;
+            max-width: 550px;
+            width: 90%;
+            border-radius: 24px;
+            padding: 30px;
+            position: relative;
+            max-height: 85vh;
+            overflow-y: auto;
+            animation: slideUpModal 0.4s ease;
+        }
+        @keyframes slideUpModal {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 28px;
+            cursor: pointer;
+            color: var(--text-muted);
+            transition: color 0.2s;
+        }
+        .modal-close:hover {
+            color: var(--primary-pink);
+        }
+        .modal-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 16px;
+            margin-bottom: 20px;
+        }
+        .modal-name {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--dark-blue);
+            margin-bottom: 5px;
+        }
+        .modal-position {
+            font-size: 0.95rem;
+            color: var(--primary-pink);
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        .modal-bio {
+            color: var(--text-dark);
+            line-height: 1.7;
+            font-size: 0.9rem;
+            white-space: pre-line;
+        }
+
+        /* --- FOOTER (same as homepage: no X icon, dynamic year, socials) --- */
+        footer {
+            background-color: #070c18;
+            color: #a0a5b0;
+            padding: 50px 5% 20px;
+            font-size: 0.9rem;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto 40px auto;
+        }
+        .footer-col h4 {
+            color: white;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+        .footer-col a {
+            color: #a0a5b0;
+            transition: color 0.2s;
+        }
+        .footer-col a:hover {
+            color: var(--primary-pink);
+        }
+        .footer-col ul {
+            list-style: none;
+        }
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+        .social-icons {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .social-icons a {
+            background: rgba(255,255,255,0.08);
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: 0.2s;
+        }
+        .social-icons a:hover {
+            background: var(--primary-pink);
+            color: white;
+            transform: translateY(-3px);
+        }
+        .footer-bottom {
+            text-align: center;
+            border-top: 1px solid #151d30;
+            padding-top: 20px;
+            font-size: 0.8rem;
+        }
+        .scroll-up {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary-pink);
+            color: white;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            z-index: 999;
+        }
+        .scroll-up.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        .scroll-up:hover {
+            background: var(--primary-pink-hover);
+            transform: translateY(-3px);
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .leadership-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        @media (max-width: 900px) {
+            .leadership-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 600px) {
+            .leadership-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .scroll-up {
+                width: 40px;
+                height: 40px;
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Loader (same as homepage) -->
+<div class="loader-wrapper" id="loaderWrapper">
+    <div class="loader-logo">
+        <img src="images/logo.png" alt="GPC Logo" onerror="this.src='https://placehold.co/180x180/1A237E/white?text=GPC'">
+    </div>
+</div>
+
+<!-- Header (identical to main site) -->
+<header>
+    <nav class="navbar">
+        <a href="index.html" class="site-logo">
+            <img src="images/logo.png" alt="GPC Malawi" class="custom-logo" onerror="this.src='https://placehold.co/200x70/1A237E/white?text=GPC+Malawi'">
+        </a>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html">Home</a></li>
+            <li class="has-dropdown">
+                <a href="#">About Us</a>
+                <ul class="dropdown-menu">
+                    <li><a href="leadership.html">Leadership</a></li>
+                    <li><a href="Volunteer.html">Volunteer</a></li>
+                    <li><a href="Mission.html">Mission</a></li>
+                    <li><a href="Vision.html">Vision</a></li>
+                    <li><a href="Pillars.html">Pillars</a></li>
+                    <li><a href="Thematic-areas.html">Thematic Areas</a></li>
+                    <li><a href="Strategic-approach.html">Strategic Approach</a></li>
+                </ul>
+            </li>
+            <li><a href="programs.html">Programs</a></li>
+            <li><a href="contact_us.html">Contact</a></li>
+            <li><a href="news.html">News</a></li>
+        </ul>
+    </nav>
+    <div class="menu-overlay" id="menuOverlay"></div>
+</header>
+
+<!-- Hero Banner -->
+<section class="leadership-hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <h1>Leadership</h1>
+        <p>Meet the passionate team driving change for AGYW in Malawi</p>
+    </div>
+</section>
+
+<!-- Leadership Profiles Grid -->
+<section class="leadership-section">
+    <div class="section-header">
+        <h2>Our Leadership Team</h2>
+        <p>Dedicated experts committed to empowering adolescent girls and young women</p>
+    </div>
+    <div class="leadership-grid" id="leadershipGrid">
+        <!-- Leadership cards will be injected via JS -->
+    </div>
+</section>
+
+<!-- Modal Popup -->
+<div class="modal" id="leaderModal">
+    <div class="modal-content">
+        <span class="modal-close" id="modalClose">&times;</span>
+        <img src="" alt="Leader" class="modal-image" id="modalImage">
+        <h2 class="modal-name" id="modalName"></h2>
+        <div class="modal-position" id="modalPosition"></div>
+        <div class="modal-bio" id="modalBio"></div>
+    </div>
+</div>
+
+<!-- Footer (same as homepage: dynamic year, social icons, no X) -->
+<footer>
+    <div class="footer-grid">
+        <div class="footer-col">
+            <h4>About GPC</h4>
+            <p>Empowering Adolescent Girls and Young Women in Malawi to become agents of change for both economic and social development.</p>
+            <div class="social-icons">
+                <a href="https://facebook.com/gpcmalawi" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://instagram.com/gpcmalawi" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+        <div class="footer-col">
+            <h4>Contact Us</h4>
+            <p><i class="fas fa-map-marker-alt"></i> Lilongwe District, Malawi</p>
+            <p><i class="fas fa-phone-alt"></i> <a href="tel:+265881234567">+265 881 234 567</a></p>
+            <p><i class="fas fa-envelope"></i> <a href="mailto:info@girlpowerforchange.org">info@girlpowerforchange.org</a></p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        &copy; <span id="currentYear"></span> GPC - Empowering AGYW. All Rights Reserved.
+    </div>
+</footer>
+
+<div class="scroll-up" id="scrollUpBtn">
+    <i class="fas fa-arrow-up"></i>
+</div>
+
+<script>
+    // Leadership Data (7 profiles)
+    const leaders = [
+        {
+            name: "Ms Linda Phiri",
+            position: "Executive Director",
+            bioPreview: "Linda Phiri is an award-winning youth advocate, policy influencer, and transformative leader advancing gender equality, youth empowerment, and SRHR in Malawi and across Africa.",
+            fullBio: "Linda Phiri is an award-winning youth advocate, policy influencer, and transformative leader advancing gender equality, youth empowerment, and sexual and reproductive health and rights (SRHR) in Malawi and across Africa. Recognized among Malawi's Inspiring 100 Women, she is known for championing meaningful youth participation, amplifying the voices of adolescent girls and young women, and driving impactful social change through advocacy, leadership, and community mobilization. Currently pursuing a Bachelor's Degree in Education (Social Studies) at the University of Malawi, Linda continues to bridge grassroots activism with national, regional, and global policy engagement.\n\nShe serves as the Youth and Adolescent Girls and Young Women Representative on the Malawi Global Fund Country Coordinating Mechanism (MGF-CCM), Her Voice Fund Ambassador, National Focal Point for Women for Global Fund Malawi, and Steering Committee Member for the UNITED! Movement. A former Vice President of the University of Malawi Students' Representative Council and former Assistant Coordinator at YouLead Africa, Linda is widely recognized for her strategic leadership, diplomacy, and ability to influence systems, mobilize communities, and build partnerships that advance equity and sustainable development.",
+            image: "leadership/leader1.jpg"
+        },
+        {
+            name: "Ms Monica Mulwafu",
+            position: "Programmes Manager",
+            bioPreview: "Monica Mulwafu is a Gender and Development Advocate and researcher with experience in administration, youth empowerment, climate change, and SGBV.",
+            fullBio: "Monica Mulwafu is a Gender and Development Advocate and researcher with experience in administration, youth empowerment, climate change, and sexual and gender-based violence (SGBV). She holds a Bachelor of Science degree in Gender and Development with Credit from the Lilongwe University of Agriculture and Natural Resources (LUANAR) and has worked with youth-focused and community-based organizations in Malawi.",
+            image: "leadership/leader2.jpg"
+        },
+        {
+            name: "Ms Jane Kanyangale",
+            position: "Partnership & Sponsorship Coordinator",
+            bioPreview: "Jane coordinates strategic partnerships and sponsorship initiatives to expand GPC's reach and impact across Malawi.",
+            fullBio: "Jane Kanyangale serves as the Partnership & Sponsorship Coordinator at GirlPower for Change, where she builds and maintains relationships with donors, corporate partners, and funding organizations. Her work ensures sustainable resource mobilization for GPC's programs across Lilongwe, Zomba, and Dowa Districts.",
+            image: "leadership/leader3.jpg"
+        },
+        {
+            name: "Ms Mervis Kambala",
+            position: "Administrative Officer",
+            bioPreview: "Mervis Kambala is a physiotherapy intern and administrative officer, passionate about healthcare, community support, and organizational development.",
+            fullBio: "Mervis Kambala is a physiotherapy intern and administrative officer at GirlPower for Change, passionate about healthcare, community support, and organizational development. Dedicated and professional, Mervis combines clinical knowledge with strong administrative skills to make a positive impact in both healthcare and community service.",
+            image: "leadership/leader4.jpg"
+        },
+        {
+            name: "Ms Yankho Phiri",
+            position: "Communications Officer",
+            bioPreview: "Yankho is passionate about girls' rights advocacy, youth empowerment, and community development, with experience in SRHR, mental health, and gender equality.",
+            fullBio: "I am passionate about girls' rights advocacy, youth empowerment, and community development, with experience in Sexual and Reproductive Health and Rights (SRHR), mental health, and gender equality initiatives. Skilled in community mobilization, workshop facilitation, and advocacy campaigns, I am committed to creating meaningful social impact and empowering young people, especially girls and young women.\n\nAs an aspiring youth leader, I volunteer with youth-led organisations focused on empowerment and social change, using my skills and passion to contribute to sustainable community development. At 22, I look forward to expanding my impact through leadership, advocacy, and service.",
+            image: "leadership/leader5.jpg"
+        },
+        {
+            name: "Ms Tontho Nkhata",
+            position: "Field Officer",
+            bioPreview: "Tontho supports the design and implementation of GPC's programs, working directly with AGYW in target communities.",
+            fullBio: "Tontho Nkhata serves as Field Officer at GirlPower for Change, supporting the implementation of programs across education, health, and economic empowerment. She works closely with community partners to ensure effective delivery of services to adolescent girls and young women in Lilongwe, Zomba, and Dowa Districts.",
+            image: "leadership/leader6.jpg"
+        },
+        {
+            name: "Mr James Hamuzah",
+            position: "Head of ICT",
+            bioPreview: "James leads GPC's digital transformation and technology initiatives to enhance program delivery and data management.",
+            fullBio: "James Hamuzah serves as the Head of ICT at GirlPower for Change, overseeing technology infrastructure, digital platforms, and data systems that support GPC's programs. He ensures efficient data collection, reporting, and digital outreach to amplify the organization's impact across Malawi.",
+            image: "leadership/leader7.jpg"
+        }
+    ];
+
+    // Dynamic Year
+    document.getElementById('currentYear').innerText = new Date().getFullYear();
+
+    // Loader
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            const loader = document.getElementById('loaderWrapper');
+            loader.classList.add('hide');
+            setTimeout(() => loader.style.display = 'none', 500);
+        }, 1000);
+    });
+
+    // Render leadership cards
+    const gridContainer = document.getElementById('leadershipGrid');
+    
+    function renderLeadership() {
+        gridContainer.innerHTML = '';
+        leaders.forEach((leader, index) => {
+            const card = document.createElement('div');
+            card.className = 'leader-card';
+            card.setAttribute('data-index', index);
+            card.innerHTML = `
+                <img src="${leader.image}" alt="${leader.name}" class="leader-image" onerror="this.src='https://placehold.co/300x280/1A237E/white?text=GPC'">
+                <div class="leader-info">
+                    <h3 class="leader-name">${escapeHtml(leader.name)}</h3>
+                    <div class="leader-position">${escapeHtml(leader.position)}</div>
+                    <p class="leader-bio-preview">${escapeHtml(leader.bioPreview)}</p>
+                    <button class="read-more-btn" data-idx="${index}">Read More <i class="fas fa-arrow-right"></i></button>
+                </div>
+            `;
+            gridContainer.appendChild(card);
+        });
+        
+        // Add event listeners to all read more buttons
+        document.querySelectorAll('.read-more-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const idx = parseInt(btn.getAttribute('data-idx'));
+                openModal(idx);
+                e.stopPropagation();
+            });
+        });
+    }
+    
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+    
+    // Modal handling
+    const modal = document.getElementById('leaderModal');
+    const modalClose = document.getElementById('modalClose');
+    const modalImage = document.getElementById('modalImage');
+    const modalName = document.getElementById('modalName');
+    const modalPosition = document.getElementById('modalPosition');
+    const modalBio = document.getElementById('modalBio');
+    
+    function openModal(index) {
+        const leader = leaders[index];
+        modalImage.src = leader.image;
+        modalImage.alt = leader.name;
+        modalImage.onerror = function() { this.src = 'https://placehold.co/550x220/1A237E/white?text=GPC'; };
+        modalName.textContent = leader.name;
+        modalPosition.textContent = leader.position;
+        modalBio.textContent = leader.fullBio;
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    
+    function closeModal() {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+    
+    modalClose.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+    
+    // Escape key close modal
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeModal();
+        }
+    });
+    
+    // Hamburger menu logic
+    const hamburger = document.getElementById('hamburgerBtn');
+    const navLinks = document.getElementById('navLinks');
+    const overlayMenu = document.getElementById('menuOverlay');
+    
+    function toggleMenu() {
+        navLinks.classList.toggle('active');
+        overlayMenu.classList.toggle('active');
+        hamburger.classList.toggle('active');
+        document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+    }
+    
+    if (hamburger) hamburger.addEventListener('click', toggleMenu);
+    if (overlayMenu) overlayMenu.addEventListener('click', toggleMenu);
+    
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', (e) => {
+            if (window.innerWidth <= 768 && link.closest('.has-dropdown') && !link.closest('.dropdown-menu')) {
+                e.preventDefault();
+                link.closest('.has-dropdown').classList.toggle('active-dropdown');
+                return;
+            }
+            if (navLinks.classList.contains('active')) toggleMenu();
+        });
+    });
+    
+    // Scroll up button
+    const scrollUpBtn = document.getElementById('scrollUpBtn');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+            scrollUpBtn.classList.add('show');
+        } else {
+            scrollUpBtn.classList.remove('show');
+        }
+    });
+    scrollUpBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    
+    // Initialize page
+    renderLeadership();
+</script>
+</body>
+</html>
