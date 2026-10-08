@@ -19,7 +19,7 @@
 <section class="form-section">
     <div class="section-header">
         <h2>{{ $event->name }}</h2>
-        <p>Register for the “{{ $event->name }}” mentorship session for first-year women.</p>
+        <p>Register for the “{{ $event->name }}” mentorship session for first-year Girls.</p>
     </div>
 
     <div class="volunteer-form">
