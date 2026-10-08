@@ -23,6 +23,7 @@
                 </ul>
             </li>
             <li><a href="{{ route('programs') }}">Programs</a></li>
+            <li><a href="{{ route('events.register') }}">Register</a></li>
             <li><a href="{{ route('contact') }}">Contact</a></li>
             <li><a href="{{ route('news') }}">News</a></li>
         </ul>

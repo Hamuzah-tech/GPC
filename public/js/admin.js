@@ -2,8 +2,11 @@
     const toastStack = document.getElementById('toast-stack');
     const modal = document.getElementById('confirm-modal');
     const modalTitle = document.getElementById('confirm-title');
+    const confirmBody = document.getElementById('confirm-body');
     const cancelBtn = document.getElementById('confirm-cancel');
     const okBtn = document.getElementById('confirm-ok');
+    const defaultConfirmBody = confirmBody?.textContent || 'This action cannot be undone.';
+    const defaultConfirmOk = okBtn?.textContent || 'Delete';
     const sidebar = document.getElementById('sidebar');
     const backdrop = document.getElementById('sidebar-backdrop');
     const menuBtn = document.getElementById('mobileMenuBtn');
@@ -24,7 +27,7 @@
         const toast = document.createElement('div');
         toast.className = `admin-toast admin-toast-${type}`;
         toast.innerHTML = `
-            <span class="admin-toast-icon">${type === 'error' ? '!' : '✓'}</span>
+            <span class="admin-toast-icon">${type === 'success' ? '✓' : '!'}</span>
             <span class="admin-toast-message"></span>
         `;
         toast.querySelector('.admin-toast-message').textContent = message;
@@ -74,12 +77,26 @@
         }
 
         modalTitle.textContent = trigger.getAttribute('data-confirm') || 'Are you sure?';
+        if (confirmBody) {
+            confirmBody.textContent = trigger.getAttribute('data-confirm-body') || defaultConfirmBody;
+        }
+        if (okBtn) {
+            okBtn.textContent = trigger.getAttribute('data-confirm-ok') || defaultConfirmOk;
+            okBtn.classList.toggle('btn-confirm-positive', trigger.getAttribute('data-confirm-tone') === 'positive');
+        }
         modal.classList.add('active');
     });
 
     const closeModal = () => {
         modal?.classList.remove('active');
         pendingForm = null;
+        if (confirmBody) {
+            confirmBody.textContent = defaultConfirmBody;
+        }
+        if (okBtn) {
+            okBtn.textContent = defaultConfirmOk;
+            okBtn.classList.remove('btn-confirm-positive');
+        }
     };
 
     cancelBtn?.addEventListener('click', closeModal);

@@ -602,6 +602,8 @@
         }
         .btn-cancel { background: #e2e8f0; }
         .btn-confirm { background: #dc3545; color: white; }
+        .btn-confirm.btn-confirm-positive { background: #15803d; color: #fff; }
+        .confirm-modal-card { max-width: 440px; }
         
         .inactivity-toast {
             position: fixed;
@@ -985,6 +987,8 @@
         }
 
         .admin-toast-error .admin-toast-icon { background: #dc2626; }
+        .admin-toast-warning { color: #78350f; border-color: #fcd34d; }
+        .admin-toast-warning .admin-toast-icon { background: #d97706; }
         .admin-toast.hiding { opacity: 0; transform: translateX(20px); transition: all 0.25s ease; }
 
         .confirm-modal {
@@ -1006,7 +1010,7 @@
             border-radius: 24px;
             padding: 28px 24px 22px;
             width: 100%;
-            max-width: 360px;
+            max-width: 440px;
             text-align: center;
         }
 
@@ -1110,6 +1114,118 @@
             .user-info-top { display: none; }
             .admin-table th,
             .admin-table td { font-size: 0.78rem; padding: 10px 8px; }
+        }
+
+        .dashboard-section-label {
+            color: #1A237E;
+            font-size: 1rem;
+            font-weight: 700;
+            margin: 8px 0 14px;
+        }
+
+        .filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .filter-bar .search-bar {
+            flex: 1 1 240px;
+            width: auto;
+            margin: 0;
+        }
+
+        .filter-bar select {
+            padding: 10px 14px;
+            border: 1px solid #e2e8f0;
+            border-radius: 30px;
+            background: #fafbfc;
+            font-family: inherit;
+            font-size: 0.75rem;
+            color: #1A237E;
+        }
+
+        .btn-inline {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            border-radius: 10px;
+            padding: 8px 10px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            font-family: inherit;
+            white-space: nowrap;
+            line-height: 1.2;
+        }
+
+        .btn-inline-accept { background: #ecfdf3; color: #15803d; }
+        .btn-inline-reject { background: #fef2f2; color: #dc2626; }
+        .btn-inline-neutral { background: #eef2ff; color: #1A237E; }
+
+        .inline-action { margin: 0; display: inline-flex; }
+
+        .admin-actions-wrap {
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            max-width: 280px;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            border-radius: 999px;
+            padding: 4px 10px;
+            font-size: 0.72rem;
+            font-weight: 700;
+        }
+
+        .status-pending { background: #fef9c3; color: #854d0e; }
+        .status-accepted { background: #dcfce7; color: #166534; }
+        .status-rejected { background: #fee2e2; color: #991b1b; }
+
+        .cell-sub {
+            margin-top: 4px;
+            color: #64748b;
+            font-size: 0.72rem;
+        }
+
+        .registrations-table { min-width: 1080px; }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px 20px;
+        }
+
+        .detail-grid dt {
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .detail-grid dd {
+            margin: 4px 0 0;
+            color: #1A237E;
+            font-weight: 600;
+            word-break: break-word;
+        }
+
+        .detail-back { margin-top: 22px; }
+        .detail-back a { color: #1A237E; font-weight: 700; text-decoration: none; }
+
+        @media (max-width: 640px) {
+            .detail-grid { grid-template-columns: 1fr; }
+            .filter-bar .search-bar,
+            .filter-bar select,
+            .filter-bar .btn-add,
+            .filter-bar .btn-inline { width: 100%; }
         }
 
     

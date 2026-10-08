@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\ContactMessageController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\EventRegistrationController as AdminEventRegistrationController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\LeaderController;
@@ -12,11 +13,13 @@ use App\Http\Controllers\Admin\ProgramController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\StrategicApproachController;
 use App\Http\Controllers\Admin\ThematicAreaController;
-use App\Http\Controllers\Admin\VolunteerApplicationController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\VolunteerApplicationController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\EventCardController;
+use App\Http\Controllers\EventRegistrationController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\VolunteerController;
 use Illuminate\Support\Facades\Route;
@@ -25,6 +28,12 @@ Route::get('/', [PageController::class, 'home'])->name('home');
 Route::get('/leadership', [PageController::class, 'leadership'])->name('leadership');
 Route::get('/volunteer', [PageController::class, 'volunteer'])->name('volunteer');
 Route::post('/volunteer', [VolunteerController::class, 'store'])->name('volunteer.store');
+Route::get('/event/register', [EventRegistrationController::class, 'create'])->name('events.register');
+Route::post('/event/register', [EventRegistrationController::class, 'store'])->middleware('throttle:event-register')->name('events.register.store');
+Route::get('/event/register/success', [EventRegistrationController::class, 'success'])->name('events.register.success');
+Route::get('/event/verify/{code}', [EventCardController::class, 'verify'])->middleware('throttle:event-verify')->name('events.verify');
+Route::get('/event/card/{token}', [EventCardController::class, 'show'])->middleware('throttle:event-verify')->name('events.card');
+Route::get('/event/card/{token}/download', [EventCardController::class, 'download'])->middleware('throttle:event-verify')->name('events.card.download');
 Route::get('/mission', [PageController::class, 'mission'])->name('mission');
 Route::get('/vision', [PageController::class, 'vision'])->name('vision');
 Route::get('/pillars', [PageController::class, 'pillars'])->name('pillars');
@@ -82,6 +91,15 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
 
         Route::get('settings', [SettingController::class, 'edit'])->name('settings.edit');
         Route::put('settings', [SettingController::class, 'update'])->name('settings.update');
+
+        Route::get('event-registrations/export', [AdminEventRegistrationController::class, 'export'])->name('event-registrations.export');
+        Route::get('event-registrations', [AdminEventRegistrationController::class, 'index'])->name('event-registrations.index');
+        Route::get('event-registrations/{eventRegistration}', [AdminEventRegistrationController::class, 'show'])->name('event-registrations.show');
+        Route::post('event-registrations/{eventRegistration}/accept', [AdminEventRegistrationController::class, 'accept'])->name('event-registrations.accept');
+        Route::post('event-registrations/{eventRegistration}/reject', [AdminEventRegistrationController::class, 'reject'])->name('event-registrations.reject');
+        Route::post('event-registrations/{eventRegistration}/resend', [AdminEventRegistrationController::class, 'resend'])->name('event-registrations.resend');
+        Route::get('event-registrations/{eventRegistration}/card', [AdminEventRegistrationController::class, 'card'])->name('event-registrations.card');
+        Route::get('event-registrations/{eventRegistration}/card/download', [AdminEventRegistrationController::class, 'downloadCard'])->name('event-registrations.card.download');
 
         Route::get('gallery', [GalleryController::class, 'index'])->name('gallery.index');
         Route::post('gallery', [GalleryController::class, 'store'])->name('gallery.store');

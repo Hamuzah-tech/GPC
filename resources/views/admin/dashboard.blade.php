@@ -31,6 +31,30 @@
     </a>
 </div>
 
+<h3 class="dashboard-section-label">Event registrations</h3>
+<div class="stats-cards">
+    <a class="stat-card" href="{{ route('admin.event-registrations.index') }}">
+        <div class="stat-icon"><x-icon name="identification" /></div>
+        <div class="stat-info"><h3>{{ $registrationCount }}</h3><p>Total registrations</p></div>
+    </a>
+    <a class="stat-card" href="{{ route('admin.event-registrations.index', ['status' => 'pending']) }}">
+        <div class="stat-icon"><x-icon name="exclamation" /></div>
+        <div class="stat-info"><h3>{{ $pendingRegistrations }}</h3><p>Pending</p></div>
+    </a>
+    <a class="stat-card" href="{{ route('admin.event-registrations.index', ['status' => 'accepted']) }}">
+        <div class="stat-icon"><x-icon name="check" /></div>
+        <div class="stat-info"><h3>{{ $acceptedRegistrations }}</h3><p>Accepted</p></div>
+    </a>
+    <a class="stat-card" href="{{ route('admin.event-registrations.index', ['status' => 'rejected']) }}">
+        <div class="stat-icon"><x-icon name="x-mark" /></div>
+        <div class="stat-info"><h3>{{ $rejectedRegistrations }}</h3><p>Rejected</p></div>
+    </a>
+    <a class="stat-card" href="{{ route('admin.event-registrations.index', ['registered' => 'today']) }}">
+        <div class="stat-icon"><x-icon name="user-plus" /></div>
+        <div class="stat-info"><h3>{{ $todayRegistrations }}</h3><p>Today's registrations</p></div>
+    </a>
+</div>
+
 <div class="dashboard dashboard-overview">
     <div class="news-list-section">
         <h3>Recent news</h3>

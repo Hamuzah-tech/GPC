@@ -1,0 +1,358 @@
+.volunteer-hero.event-hero {
+    background-image: url('/images/join_us.jpg');
+}
+
+.field-error {
+    color: #b42318;
+    font-size: 0.82rem;
+    margin: 0;
+}
+
+.notice-panel,
+.success-panel {
+    border-radius: 18px;
+    padding: 22px 22px 8px;
+    margin-bottom: 22px;
+}
+
+.notice-panel {
+    background: #fff7ed;
+    border: 1px solid #fdba74;
+    margin-bottom: 28px;
+    padding-bottom: 18px;
+}
+
+.notice-panel h2,
+.success-panel h1 {
+    color: #1A237E;
+    font-size: 1.45rem;
+    margin-bottom: 8px;
+}
+
+.notice-panel p,
+.success-panel p {
+    color: #444;
+    margin-bottom: 0;
+}
+
+.success-panel {
+    text-align: center;
+    padding: 48px 28px;
+}
+
+.success-panel .text-link,
+.card-print,
+.card-download {
+    margin-top: 22px;
+}
+
+.text-link {
+    display: inline-block;
+    color: #1A237E;
+    font-weight: 600;
+}
+
+input[readonly] {
+    background: #f7f7fb;
+    color: #1A237E;
+    font-weight: 600;
+}
+
+.event-result {
+    padding: 48px 5% 72px;
+    background: #f6f7fb;
+    min-height: 60vh;
+}
+
+.card-page,
+.result-card {
+    max-width: 460px;
+    margin: 0 auto;
+}
+
+.card-page-intro {
+    text-align: center;
+    margin-bottom: 22px;
+}
+
+.card-page-intro h1,
+.result-card h1 {
+    color: #1A237E;
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+}
+
+.card-page-intro p,
+.result-card p {
+    color: #555;
+}
+
+.card-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 18px;
+}
+
+.card-download {
+    margin-top: 0;
+    text-decoration: none;
+}
+
+.card-print {
+    background: #1A237E;
+    color: #fff;
+    border: none;
+    border-radius: 40px;
+    padding: 14px 32px;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.result-card {
+    background: #fff;
+    border-radius: 28px;
+    padding: 36px 28px;
+    text-align: center;
+    box-shadow: 0 16px 40px rgba(26, 35, 126, 0.08);
+}
+
+.result-mark {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 16px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ecfdf3;
+    color: #15803d;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.result-event {
+    color: #F128C8;
+    font-weight: 600;
+    margin-bottom: 22px;
+}
+
+.result-card dl {
+    text-align: left;
+    display: grid;
+    gap: 14px;
+}
+
+.result-card dt {
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #667;
+}
+
+.result-card dd {
+    margin: 2px 0 0;
+    color: #1A237E;
+    font-size: 1.15rem;
+    font-weight: 700;
+}
+
+.pass-card {
+    width: 100%;
+    max-width: 420px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 28px;
+    overflow: hidden;
+    box-shadow: 0 18px 50px rgba(26, 35, 126, 0.16);
+    color: #333;
+}
+
+.pass-header {
+    background: #1A237E;
+    color: #fff;
+    text-align: center;
+    padding: 28px 22px 22px;
+}
+
+.pass-logo-wrap {
+    display: inline-flex;
+    background: #fff;
+    border-radius: 14px;
+    padding: 8px 10px;
+    margin-bottom: 14px;
+}
+
+.pass-logo {
+    height: 46px;
+    width: auto;
+    display: block;
+}
+
+.pass-kicker,
+.pass-tagline,
+.pass-role,
+.pass-year,
+.pass-qr p,
+.pass-footer {
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.pass-kicker {
+    color: #F128C8;
+    font-size: 0.72rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.pass-header h2 {
+    font-size: 1.85rem;
+    line-height: 1.05;
+    margin: 8px 0 0;
+}
+
+.pass-tagline {
+    margin: 8px 0 0;
+    font-size: 0.78rem;
+    font-weight: 500;
+}
+
+.pass-accent {
+    height: 8px;
+    background: linear-gradient(90deg, #F128C8, #1A237E);
+}
+
+.pass-body {
+    padding: 26px 22px 18px;
+    text-align: center;
+}
+
+.pass-role {
+    margin: 0;
+    color: #F128C8;
+    font-size: 0.72rem;
+    font-weight: 700;
+}
+
+.pass-name {
+    margin: 8px 0 4px;
+    color: #1A237E;
+    font-size: 1.85rem;
+    line-height: 1.15;
+}
+
+.pass-year {
+    margin: 0;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.pass-meta {
+    margin: 18px 0 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    text-align: left;
+}
+
+.pass-meta div {
+    background: #f4f6fb;
+    border-radius: 14px;
+    padding: 12px;
+}
+
+.pass-meta dt {
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #667;
+}
+
+.pass-meta dd {
+    margin: 4px 0 0;
+    color: #1A237E;
+    font-weight: 700;
+    word-break: break-word;
+}
+
+.pass-qr {
+    margin-top: 18px;
+}
+
+.pass-qr img {
+    width: 200px;
+    height: 200px;
+    max-width: 70%;
+    background: #fff;
+    border-radius: 16px;
+    padding: 8px;
+    border: 1px solid #e6e8ef;
+}
+
+.pass-qr p {
+    margin: 8px 0 0;
+    color: #1A237E;
+    font-size: 0.72rem;
+    font-weight: 700;
+}
+
+.pass-footer {
+    background: #12195c;
+    color: #fff;
+    text-align: center;
+    font-size: 0.68rem;
+    font-weight: 600;
+    padding: 12px;
+}
+
+@media (max-width: 480px) {
+    .pass-name,
+    .pass-header h2,
+    .result-card h1 {
+        font-size: 1.45rem;
+    }
+
+    .pass-meta {
+        grid-template-columns: 1fr;
+    }
+
+    .event-result {
+        padding: 28px 4% 48px;
+    }
+}
+
+@media print {
+    header,
+    footer,
+    .scroll-up,
+    .loader-wrapper,
+    .sidebar,
+    .top-bar,
+    .sidebar-backdrop,
+    .toast-stack,
+    .confirm-modal,
+    .no-print,
+    .card-actions,
+    .card-page-intro {
+        display: none !important;
+    }
+
+    .main-content,
+    .page-card,
+    .event-result,
+    body {
+        background: #fff !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+    }
+
+    .pass-card {
+        box-shadow: none;
+        max-width: none;
+    }
+}

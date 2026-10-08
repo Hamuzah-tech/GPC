@@ -55,6 +55,10 @@
                 <span>Volunteers</span>
             </a>
             @if($isAdmin)
+                <a class="menu-item {{ request()->routeIs('admin.event-registrations.*') ? 'active' : '' }}" href="{{ route('admin.event-registrations.index') }}">
+                    <x-icon name="identification" />
+                    <span>Event Registrations</span>
+                </a>
                 <a class="menu-item {{ request()->routeIs('admin.users.*') ? 'active' : '' }}" href="{{ route('admin.users.index') }}">
                     <x-icon name="users" />
                     <span>Users</span>
@@ -116,7 +120,7 @@
             <x-icon name="exclamation" />
         </div>
         <h3 id="confirm-title">Delete this item?</h3>
-        <p>This action cannot be undone.</p>
+        <p id="confirm-body">This action cannot be undone.</p>
         <div class="confirm-modal-actions">
             <button type="button" id="confirm-cancel" class="btn-cancel">Cancel</button>
             <button type="button" id="confirm-ok" class="btn-confirm">Delete</button>
@@ -131,6 +135,9 @@
     @endif
     @if(session('error'))
         showAdminToast(@json(session('error')), 'error');
+    @endif
+    @if(session('warning'))
+        showAdminToast(@json(session('warning')), 'warning');
     @endif
     @if($errors->any())
         showAdminToast(@json($errors->first()), 'error');
