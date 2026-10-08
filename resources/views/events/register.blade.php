@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Register for the Event')
+@section('title', !empty($registrationSucceeded) ? 'Registration Successful' : 'Register for the Event')
 @section('css', asset('css/pages/volunteer.css'))
 
 @push('styles')
@@ -8,6 +8,7 @@
 @endpush
 
 @section('content')
+<div id="registrationStage" @if(!empty($registrationSucceeded)) inert data-depth="0.12" @endif>
 <section class="volunteer-hero event-hero">
     <div class="hero-overlay"></div>
     <div class="hero-content">
@@ -74,6 +75,24 @@
         </form>
     </div>
 </section>
+</div>
+
+@if(!empty($registrationSucceeded))
+<div class="success-modal" id="successModal" role="dialog" aria-modal="true" aria-labelledby="success-title">
+    <div class="success-scene" data-success-scene aria-hidden="true">
+        <span class="success-orb success-orb-a" data-depth="0.7"></span>
+        <span class="success-orb success-orb-b" data-depth="1.15"></span>
+        <span class="success-orb success-orb-c" data-depth="0.42"></span>
+    </div>
+    <div class="success-dialog-float" data-depth="0.28">
+        <div class="success-dialog" tabindex="-1">
+            <h1 id="success-title">Registration Successful!</h1>
+            <p>Thank you for registering for “{{ $event->name }}”. Your registration has been received and is currently awaiting confirmation from the organising team.</p>
+            <a class="submit-btn success-home" href="{{ route('home') }}">Return to the homepage</a>
+        </div>
+    </div>
+</div>
+@endif
 @endsection
 
 @push('scripts')
@@ -99,4 +118,87 @@
         });
     })();
 </script>
+@if(!empty($registrationSucceeded))
+<script>
+    (function () {
+        const modal = document.getElementById('successModal');
+        const stage = document.getElementById('registrationStage');
+        const dialog = modal?.querySelector('.success-dialog');
+        if (!modal) {
+            return;
+        }
+
+        document.body.classList.add('success-open');
+        document.querySelectorAll('header, footer, .scroll-up').forEach(function (element) {
+            element.setAttribute('inert', '');
+        });
+
+        const motion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const nodes = [stage, ...modal.querySelectorAll('[data-depth]')].filter(Boolean);
+        let targetX = 0;
+        let targetY = 0;
+        let currentX = 0;
+        let currentY = 0;
+        let frame = 0;
+
+        function reveal() {
+            modal.classList.add('is-in');
+            dialog?.focus();
+            if (!motion) {
+                return;
+            }
+            const started = performance.now();
+            function tick(now) {
+                currentX += (targetX - currentX) * 0.065;
+                currentY += (targetY - currentY) * 0.065;
+                const time = (now - started) / 1000;
+                nodes.forEach(function (node) {
+                    const depth = parseFloat(node.dataset.depth || '0');
+                    const driftX = Math.sin(time * 0.32 + depth * 6) * 22 * depth;
+                    const driftY = Math.cos(time * 0.24 + depth * 4) * 16 * depth;
+                    const x = currentX * 34 * depth + driftX;
+                    const y = currentY * 26 * depth + driftY;
+                    node.style.transform = 'translate3d(' + x.toFixed(2) + 'px, ' + y.toFixed(2) + 'px, 0)';
+                });
+                frame = window.requestAnimationFrame(tick);
+            }
+            frame = window.requestAnimationFrame(tick);
+        }
+
+        modal.addEventListener('pointermove', function (event) {
+            const rect = modal.getBoundingClientRect();
+            targetX = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
+            targetY = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
+        });
+
+        function onLoaderGone() {
+            window.setTimeout(reveal, motion ? 0 : 80);
+        }
+
+        const loader = document.getElementById('loaderWrapper');
+        if (!loader || loader.classList.contains('hide')) {
+            onLoaderGone();
+        } else {
+            const observer = new MutationObserver(function () {
+                if (loader.classList.contains('hide')) {
+                    observer.disconnect();
+                    onLoaderGone();
+                }
+            });
+            observer.observe(loader, { attributes: true, attributeFilter: ['class'] });
+            window.setTimeout(function () {
+                if (!modal.classList.contains('is-in')) {
+                    reveal();
+                }
+            }, 1800);
+        }
+
+        window.addEventListener('pagehide', function () {
+            if (frame) {
+                window.cancelAnimationFrame(frame);
+            }
+        });
+    })();
+</script>
+@endif
 @endpush

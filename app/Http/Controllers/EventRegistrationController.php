@@ -15,6 +15,7 @@ class EventRegistrationController extends Controller
     {
         return view('events.register', [
             'event' => Event::becomingHer(),
+            'registrationSucceeded' => false,
         ]);
     }
 
@@ -41,8 +42,9 @@ class EventRegistrationController extends Controller
 
         session()->reflash();
 
-        return view('events.success', [
+        return view('events.register', [
             'event' => Event::becomingHer(),
+            'registrationSucceeded' => true,
         ]);
     }
 }
