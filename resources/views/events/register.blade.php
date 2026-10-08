@@ -35,28 +35,28 @@
             <div class="form-grid">
                 <div class="form-group">
                     <label for="full_name">Full Name <span class="required">*</span></label>
-                    <input type="text" id="full_name" name="full_name" value="{{ old('full_name') }}" required maxlength="255" autocomplete="name" placeholder="Mary Banda" @error('full_name') aria-invalid="true" aria-describedby="full-name-error" @enderror>
+                    <input type="text" id="full_name" name="full_name" value="{{ old('full_name') }}" required maxlength="255" autocomplete="name" @error('full_name') aria-invalid="true" aria-describedby="full-name-error" @enderror>
                     @error('full_name')
                         <p class="field-error" id="full-name-error">{{ $message }}</p>
                     @enderror
                 </div>
                 <div class="form-group">
                     <label for="registration_number">Registration Number <span class="required">*</span></label>
-                    <input type="text" id="registration_number" name="registration_number" value="{{ old('registration_number') }}" required maxlength="100" autocomplete="off" placeholder="UNIMA-2026-001" @error('registration_number') aria-invalid="true" aria-describedby="registration-number-error" @enderror>
+                    <input type="text" id="registration_number" name="registration_number" value="{{ old('registration_number') }}" required maxlength="100" autocomplete="off" @error('registration_number') aria-invalid="true" aria-describedby="registration-number-error" @enderror>
                     @error('registration_number')
                         <p class="field-error" id="registration-number-error">{{ $message }}</p>
                     @enderror
                 </div>
                 <div class="form-group">
                     <label for="phone">Phone Number <span class="required">*</span></label>
-                    <input type="tel" id="phone" name="phone" value="{{ old('phone') }}" required maxlength="50" autocomplete="tel" placeholder="+265 XXX XXX XXX" @error('phone') aria-invalid="true" aria-describedby="phone-error" @enderror>
+                    <input type="tel" id="phone" name="phone" value="{{ old('phone') }}" required maxlength="50" autocomplete="tel" @error('phone') aria-invalid="true" aria-describedby="phone-error" @enderror>
                     @error('phone')
                         <p class="field-error" id="phone-error">{{ $message }}</p>
                     @enderror
                 </div>
                 <div class="form-group">
                     <label for="email">Email Address <span class="required">*</span></label>
-                    <input type="email" id="email" name="email" value="{{ old('email') }}" required maxlength="255" autocomplete="email" placeholder="you@example.com" @error('email') aria-invalid="true" aria-describedby="email-error" @enderror>
+                    <input type="email" id="email" name="email" value="{{ old('email') }}" required maxlength="255" autocomplete="email" @error('email') aria-invalid="true" aria-describedby="email-error" @enderror>
                     @error('email')
                         <p class="field-error" id="email-error">{{ $message }}</p>
                     @enderror
